@@ -21,13 +21,7 @@ export class Toggle extends Component {
   };
 
   render() {
-    return (
-      <>
-        {this.state.on ? <p>Button is On</p> : null}
-        {this.state.on ? null : <p>Button is Off</p>}
-        <Switch on={this.state.on} onClick={this.toggle}></Switch>
-      </>
-    );
+    return this.props.children;
   }
 }
 
