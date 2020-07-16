@@ -30,11 +30,12 @@ import createHistory from 'history/createBrowserHistory';
 // }
 //=================== React rooter ===================//
 const history = createHistory();
+
 const Link = ({ to, children }) => (
   <a
     onClick={(e) => {
       e.preventDefault();
-      history.push(to);
+      history.push(to)
     }}
     href={to}
   >
