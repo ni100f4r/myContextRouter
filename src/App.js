@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import Switch from "./Switch";
 import Toggle from "./toggle";
-import Route from "./Router"
+import Route from "./Router/Router";
+import createHistory from 'history/createBrowserHistory';
 
 // function App() {
 //   return (
@@ -28,6 +29,19 @@ import Route from "./Router"
 //   );
 // }
 //=================== React rooter ===================//
+const history = createHistory();
+const Link = ({ to, children }) => (
+  <a
+    onClick={(e) => {
+      e.preventDefault();
+      history.push(to);
+    }}
+    href={to}
+  >
+    {children}
+  </a>
+);
+
 const Homepage = () => (
   <div>
     <h1>Home</h1>
@@ -53,16 +67,16 @@ class App extends Component {
       <div className="App">
         <ul style={{ listStyle: "none" }}>
           <li>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="/store">Store</a>
+            <Link to="/store">Store</Link>
           </li>
           <li>
-            <a href="/about">About Us</a>
+            <Link to="/about">About Us</Link>
           </li>
         </ul>
-        <Route path="/" Component={Homepage}></Route>
+        <Route exact path="/" Component={Homepage}></Route>
         <Route path="/store" Component={Store}></Route>
         <Route path="/about" Component={AboutUs}></Route>
       </div>
