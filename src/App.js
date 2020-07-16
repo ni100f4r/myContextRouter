@@ -3,7 +3,7 @@ import "./App.css";
 import Switch from "./Switch";
 import Toggle from "./toggle";
 import Route from "./Router/Router";
-import createHistory from 'history/createBrowserHistory';
+import history from './history'
 
 // function App() {
 //   return (
@@ -34,7 +34,7 @@ const Link = ({ to, children }) => (
   <a
     onClick={(e) => {
       e.preventDefault();
-      history.push(to);
+      history.push({to});
     }}
     href={to}
   >
