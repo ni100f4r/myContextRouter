@@ -3,7 +3,8 @@ import "./App.css";
 import Switch from "./Switch";
 import Toggle from "./toggle";
 import Route from "./Router/Router";
-import createHistory from 'history/createBrowserHistory';
+// import createHistory from "history/createBrowserHistory";
+import MyLink from './Link'
 
 // function App() {
 //   return (
@@ -29,19 +30,19 @@ import createHistory from 'history/createBrowserHistory';
 //   );
 // }
 //=================== React rooter ===================//
-const history = createHistory();
+// const history = createHistory();
 
-const Link = ({ to, children }) => (
-  <a
-    onClick={(e) => {
-      e.preventDefault();
-      history.push(to)
-    }}
-    href={to}
-  >
-    {children}
-  </a>
-);
+// const Link = ({ to, children }) => (
+//   <a
+//     onClick={(e) => {
+//       e.preventDefault();
+//       history.push(to);
+//     }}
+//     href={to}
+//   >
+//     {children}
+//   </a>
+// );
 
 const Homepage = () => (
   <div>
@@ -63,6 +64,12 @@ const AboutUs = () => (
 );
 
 class App extends Component {
+  // componentDidMount() {
+  //   history.listen(() => {
+  //     this.forceUpdate();
+  //   });
+  // }
+
   render() {
     return (
       <div className="App">
@@ -77,9 +84,10 @@ class App extends Component {
             <Link to="/about">About Us</Link>
           </li>
         </ul>
-        <Route exact path="/" Component={Homepage}></Route>
+        {/* <Route exact path="/" Component={Homepage}></Route>
         <Route path="/store" Component={Store}></Route>
-        <Route path="/about" Component={AboutUs}></Route>
+        <Route path="/about" Component={AboutUs}></Route> */}
+        
       </div>
     );
   }
