@@ -1,12 +1,12 @@
-import React from "react";
+// import React from "react";
 
-const Route = ({ path, exact, component: Component }) => {
-  const shouldRender = exact
-    ? window.location.pathname === path
-    : window.location.pathname.startsWith(path);
-  if (shouldRender) {
-    return <Component></Component>;
-  } else return null;
-};
+// const Route = ({ path, exact, component: Component }) => {
+//   const shouldRender = exact
+//     ? window.location.pathname === path
+//     : window.location.pathname.startsWith(path);
+//   if (shouldRender) {
+//     return <Component></Component>;
+//   } else return null;
+// };
 
-export default Route;
+// export default Route;
