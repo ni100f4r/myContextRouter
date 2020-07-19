@@ -1,6 +1,6 @@
 import React from "react";
 
-const Route = ({ path, exact, Component }) => {
+const Route = ({ path, exact, component: Component }) => {
   const shouldRender = exact
     ? window.location.pathname === path
     : window.location.pathname.startsWith(path);

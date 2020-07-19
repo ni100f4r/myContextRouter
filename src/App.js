@@ -3,8 +3,27 @@ import "./App.css";
 import Switch from "./Switch";
 import Toggle from "./toggle";
 import Route from "./Router/Router";
-// import createHistory from "history/createBrowserHistory";
-import MyLink from './Link'
+
+var createHistory = require("history").createBrowserHistory;
+const RouterContext = React.createContext();
+class Router extends Component {
+  componentDidMount() {
+    this.history = createHistory();
+    this.history.listen(() => this.forceUpdate());
+  }
+  render(props) {
+    return (
+      <RouterContext.Provider
+        value={{
+          history: this.history,
+          location: window.location,
+        }}
+      >
+        {props.children}
+      </RouterContext.Provider>
+    );
+  }
+}
 
 // function App() {
 //   return (
@@ -30,19 +49,59 @@ import MyLink from './Link'
 //   );
 // }
 //=================== React rooter ===================//
-// const history = createHistory();
+const history = createHistory();
+console.log(history);
 
-// const Link = ({ to, children }) => (
-//   <a
-//     onClick={(e) => {
-//       e.preventDefault();
-//       history.push(to);
-//     }}
-//     href={to}
-//   >
-//     {children}
-//   </a>
-// );
+class Redirect extends Component {
+  componentDidMount() {
+    history.push(this.props.to);
+  }
+  render() {
+    return null;
+  }
+}
+
+class AuthenticatedPage extends Component {
+  state = {
+    time: 10,
+  };
+  componentDidMount() {
+    setInterval(() => {
+      this.setState((prevState) => {
+        return { time: prevState.time - 1 };
+      });
+    }, 1000);
+  }
+
+  render() {
+    if (this.state.time <= 0) {
+      return <Redirect to="/"></Redirect>;
+    }
+    return (
+      <div>
+        <p>
+          This is a Authenticated page. redirecting in: {"" + this.state.time}
+        </p>
+      </div>
+    );
+  }
+}
+
+const Link = ({ to, children }) => (
+  <RouterContext.Consumer>
+    {(context) => (
+      <a
+        onClick={(e) => {
+          e.preventDefault();
+          context.history.push(to);
+        }}
+        href={to}
+      >
+        {children}
+      </a>
+    )}
+  </RouterContext.Consumer>
+);
 
 const Homepage = () => (
   <div>
@@ -64,12 +123,6 @@ const AboutUs = () => (
 );
 
 class App extends Component {
-  // componentDidMount() {
-  //   history.listen(() => {
-  //     this.forceUpdate();
-  //   });
-  // }
-
   render() {
     return (
       <div className="App">
@@ -83,11 +136,14 @@ class App extends Component {
           <li>
             <Link to="/about">About Us</Link>
           </li>
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
         </ul>
-        {/* <Route exact path="/" Component={Homepage}></Route>
-        <Route path="/store" Component={Store}></Route>
-        <Route path="/about" Component={AboutUs}></Route> */}
-        
+        <Route exact path="/" component={Homepage}></Route>
+        <Route path="/store" component={Store}></Route>
+        <Route path="/about" component={AboutUs}></Route>
+        <Route path="/admin" component={AuthenticatedPage}></Route>
       </div>
     );
   }
