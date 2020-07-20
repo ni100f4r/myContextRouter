@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Switch from "./Switch";
 import Toggle from "./toggle";
-import { Route, Link, Redirect, Router } from "react-router";
+import { Route, Link, Redirect, Router } from "react-router-dom";
 // import Route from "./Router/Router";
 
 //=================== React Router_Me ===================//
