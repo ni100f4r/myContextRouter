@@ -2,75 +2,75 @@ import React, { Component } from "react";
 import "./App.css";
 import Switch from "./Switch";
 import Toggle from "./toggle";
+import { Route, Link, Redirect, Router } from "react-router";
 // import Route from "./Router/Router";
 
-
 //=================== React Router_Me ===================//
-var createHistory = require("history").createBrowserHistory;
-const RouterContext = React.createContext();
+// var createHistory = require("history").createBrowserHistory;
+// const RouterContext = React.createContext();
 
-class Router extends Component {
-  constructor(props) {
-    super(props);
-    this.history = createHistory();
-    this.history.listen(() => this.forceUpdate());
-  }
+// class Router extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.history = createHistory();
+//     this.history.listen(() => this.forceUpdate());
+//   }
 
-  render() {
-    return (
-      <RouterContext.Provider
-        value={{
-          history: this.history,
-          location: window.location
-        }}>
-        {this.props.children}
-      </RouterContext.Provider>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <RouterContext.Provider
+//         value={{
+//           history: this.history,
+//           location: window.location
+//         }}>
+//         {this.props.children}
+//       </RouterContext.Provider>
+//     );
+//   }
+// }
 
-const Link = ({ to, children }) => (
-  <RouterContext.Consumer>
-    {(context) => {
-      return (
-        <a
-          onClick={(e) => {
-            e.preventDefault();
-            context.history.push(to);
-          }}
-          href={to}
-        >
-          {children}
-        </a>
-      )
-    }}
-  </RouterContext.Consumer>
-);
+// const Link = ({ to, children }) => (
+//   <RouterContext.Consumer>
+//     {(context) => {
+//       return (
+//         <a
+//           onClick={(e) => {
+//             e.preventDefault();
+//             context.history.push(to);
+//           }}
+//           href={to}
+//         >
+//           {children}
+//         </a>
+//       )
+//     }}
+//   </RouterContext.Consumer>
+// );
 
-const Route = ({ path, exact, component: Component }) => {
-  return (
-    <RouterContext.Consumer>
-      {context => {
-        const shouldRender = exact
-        ? context.location.pathname === path
-        : context.location.pathname.startsWith(path);
-      if (shouldRender) {
-        return <Component></Component>;
-      } else return null;
-    }}
-    </RouterContext.Consumer>
-  );
-};
+// const Route = ({ path, exact, component: Component }) => {
+//   return (
+//     <RouterContext.Consumer>
+//       {context => {
+//         const shouldRender = exact
+//         ? context.location.pathname === path
+//         : context.location.pathname.startsWith(path);
+//       if (shouldRender) {
+//         return <Component></Component>;
+//       } else return null;
+//     }}
+//     </RouterContext.Consumer>
+//   );
+// };
 
-class Redirect extends Component {
-  static contextType = RouterContext;
-  componentDidMount() {
-    this.context.history.push(this.props.to);
-  }
-  render() {
-    return null;
-  }
-}
+// class Redirect extends Component {
+//   static contextType = RouterContext;
+//   componentDidMount() {
+//     this.context.history.push(this.props.to);
+//   }
+//   render() {
+//     return null;
+//   }
+// }
 
 const Homepage = () => (
   <div>
@@ -125,25 +125,25 @@ class App extends Component {
       <div className="App">
         <Router>
           <>
-        <ul style={{ listStyle: "none" }}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/store">Store</Link>
-          </li>
-          <li>
-            <Link to="/about">About Us</Link>
-          </li>
-          <li>
-            <Link to="/admin">Admin</Link>
-          </li>
-        </ul>
-        <Route exact path="/" component={Homepage}></Route>
-        <Route path="/store" component={Store}></Route>
-        <Route path="/about" component={AboutUs}></Route>
-        <Route path="/admin" component={AuthenticatedPage}></Route>
-        </>
+            <ul style={{ listStyle: "none" }}>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/store">Store</Link>
+              </li>
+              <li>
+                <Link to="/about">About Us</Link>
+              </li>
+              <li>
+                <Link to="/admin">Admin</Link>
+              </li>
+            </ul>
+            <Route exact path="/" component={Homepage}></Route>
+            <Route path="/store" component={Store}></Route>
+            <Route path="/about" component={AboutUs}></Route>
+            <Route path="/admin" component={AuthenticatedPage}></Route>
+          </>
         </Router>
       </div>
     );
